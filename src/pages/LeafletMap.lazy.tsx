@@ -1,6 +1,7 @@
-import React, { Suspense, lazy } from "react";
+import dynamic from "next/dynamic";
+import React, { Suspense } from "react";
 
-const LazyLeafletMap = lazy(() => import("./LeafletMap"));
+const LazyLeafletMap = dynamic(() => import("./LeafletMap"), { ssr: false });
 
 export const LeafletMapLazyLoaded: React.FC = () => {
   return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 
 const LeafletMapLazyComp: React.FC = () => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -13,6 +13,7 @@ const LeafletMapLazyComp: React.FC = () => {
   const errorCallBackPosition: () => unknown = (): unknown => {
     return;
   };
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       successCallBackPosition,
@@ -33,6 +34,14 @@ const LeafletMapLazyComp: React.FC = () => {
           maxZoom={5}
           minZoom={2}
           attributionControl={false}
+          bounds={[
+            [51.505, -0.09],
+            [51.5, -0.06],
+          ]}
+          boundsOptions={{}}
+          maxBoundsViscosity={0.1}
+          // maxBoundsViscosity={1.0}
+          //         whenReady={(map) => (mapRef.current = map)}
         >
           <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
         </MapContainer>
