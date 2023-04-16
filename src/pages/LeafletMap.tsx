@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
+import React, { useEffect, useState, useRef } from "react";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { divIcon } from "leaflet";
+import { renderToStaticMarkup } from "react-dom/server";
 
 const LeafletMapLazyComp: React.FC = () => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -21,30 +23,46 @@ const LeafletMapLazyComp: React.FC = () => {
     );
     setIsMounted(true);
   }, [lng, lat]);
+  const customMarkerIcon = divIcon({
+    html: renderToStaticMarkup(<div className="userMarker"></div>),
+  });
+
+  const mapRef = useRef();
+  function handleFlyTo() {
+    const { current = {} } = mapRef;
+    const { leafletElement: map } = current;
+    map.flyTo([lng, lat], 15, {
+      duration: 1000,
+    });
+  }
   return (
     <>
       {isMounted && lng == null && lat == null && (
         <h1>😔 YOU DIDNT GAVE YOUR POSITION...</h1>
       )}
       {isMounted && lng != null && lat != null && (
-        <MapContainer
-          className="relative h-full w-full"
-          center={[40.0, 40.0]}
-          zoom={3}
-          maxZoom={5}
-          minZoom={2}
-          attributionControl={false}
-          bounds={[
-            [51.505, -0.09],
-            [51.5, -0.06],
-          ]}
-          boundsOptions={{}}
-          maxBoundsViscosity={0.1}
-          // maxBoundsViscosity={1.0}
-          //         whenReady={(map) => (mapRef.current = map)}
-        >
-          <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
-        </MapContainer>
+        <>
+          <MapContainer
+            className="relative h-full w-full bg-transparent"
+            center={[lat, lng]}
+            zoom={15}
+            //maxZoom={}
+            minZoom={5}
+            attributionControl={false}
+            // maxBoundsViscosity={1.0}
+            //         whenReady={(map) => (mapRef.current = map)}
+          >
+            <TileLayer
+              url="
+            https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+            "
+            />
+            <Marker position={[lat, lng]} icon={customMarkerIcon} />
+            {/* Call the handleGetCenter function on button click */}
+          </MapContainer>
+          <button onClick={handleFlyTo}>Get Center</button>{" "}
+          {/* Call the handleGetCenter function on button click */}
+        </>
       )}
     </>
   );
