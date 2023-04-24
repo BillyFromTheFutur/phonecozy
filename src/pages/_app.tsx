@@ -11,6 +11,21 @@ import Head from "next/head";
 import NavBar from "./components/navbar";
 import MainMap from "./components/Map/MainMap";
 
+import { Map as ReactMapGL } from "react-map-gl";
+import maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+
+const MapComponent = () => {
+  const [viewport, setViewport] = React.useState({
+    width: "100vw",
+    height: "100vh",
+    latitude: 37.7577,
+    longitude: -122.4376,
+    zoom: 12,
+  });
+
+  return <ReactMapGL {...viewport} onViewportChange={setViewport} />;
+};
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
@@ -39,7 +54,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
             <NavBar />
           </div>
         </div>
-        <MainMap />
+        <MapComponent />
       </main>
     </>
   );
