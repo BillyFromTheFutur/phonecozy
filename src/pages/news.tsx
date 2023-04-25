@@ -14,6 +14,26 @@ const News: NextPage = () => {
       <p>News</p>
       <p>News</p>
       <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
+      <p>News</p>
     </>
   );
 };

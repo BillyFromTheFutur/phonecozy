@@ -1,60 +1,83 @@
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import React, { useEffect } from "react";
-import { LeafletMapLazyLoaded } from "./LeafletMap.lazy";
-import "leaflet/dist/leaflet.css";
-import { useRouter } from "next/router";
+import React from "react";
 import { api } from "~/utils/api";
 import "~/styles/globals.css";
 import Head from "next/head";
 import NavBar from "./components/navbar";
-import MainMap from "./components/Map/MainMap";
+import { useRouter } from "next/router";
+import LoadingBar from "react-top-loading-bar";
 
-import { Map as ReactMapGL } from "react-map-gl";
-import maplibregl from "maplibre-gl";
-import "maplibre-gl/dist/maplibre-gl.css";
-
-const MapComponent = () => {
-  const [viewport, setViewport] = React.useState({
-    width: "100vw",
-    height: "100vh",
-    latitude: 37.7577,
-    longitude: -122.4376,
-    zoom: 12,
-  });
-
-  return <ReactMapGL {...viewport} onViewportChange={setViewport} />;
-};
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
+  const router = useRouter();
+
+  const [progress, setProgress] = React.useState<number>(0);
+  React.useEffect(() => {
+    const handleRouteChangeStart = (url: string) => {
+      // This function will be called when a route starts to change
+      setProgress(30);
+      console.log(`Route is starting to change: ${url}`);
+    };
+    /*
+    function sleep(ms: number): Promise<void> {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    */
+    const handleRouteChangeComplete = (url: string) => {
+      // This function will be called when a route has changed
+
+      setProgress(100);
+      console.log(`New page has loaded: ${url}`);
+    };
+
+    // Listen for the `routeChangeStart` event
+    router.events.on("routeChangeStart", handleRouteChangeStart);
+
+    // Listen for the `routeChangeComplete` event
+    router.events.on("routeChangeComplete", handleRouteChangeComplete);
+
+    // Clean up the event listeners when the component is unmounted
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChangeStart);
+      router.events.off("routeChangeComplete", handleRouteChangeComplete);
+    };
+  }, [router.events]);
+
   return (
     <>
       <Head>
-        <title>HalalCozy</title>
+        <title>Yiza</title>
         <meta name="description" content="Come and have fun" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className=" grid min-h-screen  grid-cols-12 bg-gradient-to-b from-[#252525] to-[#252525] ">
-        <div className="col-span-5 col-start-1 flex max-h-screen items-center justify-center ">
-          <div className="grid h-[90%]  w-[90%]  grid-rows-12 overflow-hidden rounded-lg bg-[#252525]">
-            <div className=" row-span-1 row-start-1  p-2">
-              <h1 className="text-3xl font-bold text-white">HalalCozy</h1>
+      <LoadingBar
+        color="#fff2cc"
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
+      <main className=" grid min-h-screen grid-cols-12 bg-gradient-to-b from-[#252525] to-[#252525] ">
+        <div className="col-span-12 col-start-1 flex max-h-screen items-center justify-center ">
+          <div className="grid h-[100%]  w-[95%]  grid-rows-18 overflow-hidden rounded-lg bg-[#252525]">
+            <div className="row-span-1 row-start-1 p-2">
+              <h1 className="text-3xl font-bold text-white">Izhaa</h1>
             </div>
+
             <div
-              style={{ gridRowStart: 2, gridRowEnd: 12 }}
-              className="gap-4 overflow-scroll rounded-md bg-[#fff2cc]/80 p-2 scrollbar-hide "
+              style={{ gridRowStart: 2, gridRowEnd: 18 }}
+              className="flex flex-col items-center gap-4 overflow-scroll rounded-md bg-[#fff2cc]/80 p-2 scrollbar-hide"
             >
+              <NavBar />
               <SessionProvider session={session}>
                 <Component {...pageProps} />
               </SessionProvider>
             </div>
-            <NavBar />
           </div>
         </div>
-        <MapComponent />
       </main>
     </>
   );
