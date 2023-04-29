@@ -17,6 +17,7 @@
     "@trpc/next": "^10.18.0",
     "@trpc/react-query": "^10.18.0",
     "@trpc/server": "^10.18.0",
+    "@types/video-react": "^0.15.1",
     "framer-motion": "^10.12.4",
     "leaflet": "^1.9.3",
     "leaflet-easyprint": "^2.1.9",
@@ -31,9 +32,11 @@
     "react-leaflet-enhanced-marker": "^1.0.21",
     "react-leaflet-universal": "^2.2.1",
     "react-map-gl": "^7.0.23",
+    "react-player": "^2.12.0",
     "react-top-loading-bar": "^2.3.1",
     "superjson": "1.12.2",
     "tailwind-scrollbar-hide": "^1.1.7",
+    "video-react": "^0.16.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {

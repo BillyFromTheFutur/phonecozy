@@ -80,7 +80,7 @@ const NavBar: React.FC = () => {
 
       <Link
         href="/news"
-        className=" z-20 flex flex-row items-center gap-2 rounded px-2 py-1 duration-100 ease-in-out hover:scale-102 hover:bg-[#252525]"
+        className="z-20 flex flex-row items-center gap-2 rounded px-2 py-1 duration-100 ease-in-out hover:scale-102  hover:bg-[#252525]"
       >
         <BsViewList
           size={20}
