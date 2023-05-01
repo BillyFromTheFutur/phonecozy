@@ -49,7 +49,7 @@ const NavBar: React.FC = () => {
       />
       <Link
         href="/"
-        className="z-20 flex flex-row items-center gap-2 rounded px-2 py-1 duration-100 ease-in-out hover:z-30 hover:bg-[#252525]"
+        className="z-20 flex flex-row items-center gap-2 rounded px-2 py-1 duration-100 ease-in-out hover:bg-[#505050]/80"
       >
         <BiHomeAlt
           size={20}
@@ -63,7 +63,8 @@ const NavBar: React.FC = () => {
 
       <Link
         href="/conversations"
-        className="z-20 flex flex-row items-center gap-2 rounded px-2 py-1 duration-100 ease-in-out hover:scale-102 hover:bg-[#252525]"
+        //hover:z-30 hover:scale-102 hover:bg-[#252525]
+        className="z-20 flex flex-row items-center gap-2 rounded px-2 py-1 duration-100 ease-in-out hover:bg-[#505050]/80"
       >
         <BsMailbox
           size={22}
@@ -80,7 +81,7 @@ const NavBar: React.FC = () => {
 
       <Link
         href="/news"
-        className="z-20 flex flex-row items-center gap-2 rounded px-2 py-1 duration-100 ease-in-out hover:scale-102  hover:bg-[#252525]"
+        className="z-20 flex flex-row items-center gap-2 rounded px-2 py-1 duration-100 ease-in-out hover:scale-102 hover:bg-[#505050]/80"
       >
         <BsViewList
           size={20}
