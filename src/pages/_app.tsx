@@ -60,16 +60,26 @@ const MyApp: AppType<{ session: Session | null }> = ({
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
       />
-      <main className=" grid min-h-screen grid-cols-12 bg-gradient-to-b from-[#151515] to-[#151515] ">
-        <div className="col-span-12 col-start-1 flex max-h-screen items-center justify-center ">
-          <div className="h-[100%] w-[95%] overflow-hidden rounded-lg bg-[#151515]">
-            <div className="row-span-1 row-start-1 p-2">
-              <h1 className="text-3xl font-bold text-white">JumpOut</h1>
+      <main
+        className="grid min-h-screen grid-cols-12 bg-gradient-to-b from-[#252525] to-[#252525]"
+        //bg-gradient-to-b from-[#151515] to-[#151515]
+        style={
+          {
+            //backgroundSize: "cover",
+            //backgroundPosition: "center",
+            //backgroundImage: `url('https://images.unsplash.com/source-404?fit=crop&fm=jpg&h=800&q=60&w=1200')`,
+          }
+        }
+      >
+        <div className="col-span-12 col-start-1 flex max-h-screen items-center justify-center overflow-hidden  ">
+          <div className=" h-[100%] w-[95%] overflow-hidden rounded-lg bg-transparent ">
+            <div className="z-40 row-span-1  row-start-1 p-2">
+              <h1 className=" text-3xl font-bold text-white">Dive In</h1>
             </div>
 
             <div
               //style={{ gridRowStart: 2, gridRowEnd: 18 }}
-              className="flex h-[90%] flex-col items-center  overflow-scroll rounded-md bg-[#ce2568] p-2 scrollbar-hide"
+              className="flex h-[90%] flex-col items-center overflow-hidden rounded-md bg-[#fff2cc]/80 p-2 "
             >
               <NavBar />
               <SessionProvider session={session}>
@@ -84,3 +94,4 @@ const MyApp: AppType<{ session: Session | null }> = ({
 };
 
 export default api.withTRPC(MyApp);
+//         <!-- <div className="absolute inset-0 bg-black/100 opacity-40 backdrop-blur-xl"></div> -->
